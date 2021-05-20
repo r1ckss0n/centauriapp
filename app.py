@@ -14,14 +14,7 @@ app.config['SQLACHEMY_DATABASE_URI']=os.getenv("DATABASE_URL")
 
 db=SQLAlchemy(app)
 
-class User(db.Model):
-    __tablename__='users'
-    
-    id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String, unique=True)
-    email=db.Column(db.String,unique=True)
-    
-    db.init_app()
+
 
 
 @app.route('/')
