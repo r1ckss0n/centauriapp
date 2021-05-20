@@ -30,7 +30,7 @@ def register():
             db.execute("INSERT INTO users (username, password) VALUES (:username, MD5(:password))",
                 {"username": user, "password": password1})
             db.commit()
-            return render_template("index.html", user = user)
+            return render_template("home.html", user = user)
         else:            
             return render_template("register.html", alert="Insert matching passwords, please")
     
@@ -46,9 +46,9 @@ def login():
             password = request.form.get("password1")
             user = db.execute("SELECT username FROM users WHERE username = :username AND password = MD5(:password)",
                 {"username": user, "password": password}).fetchone()
-            return render_template("index.html", user = user.username)
+            return render_template("home.html", user = user.username)
         except:
-            return render_template("index.html", user = "Unable to login")
+            return render_template("home.html", user = "Unable to login")
 
     else:
         return render_template("login.html")
