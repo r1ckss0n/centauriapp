@@ -1,2 +1,2 @@
 # centauriapp
-App fpr the Centauri Club
+App for the Centauri Club
