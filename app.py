@@ -14,6 +14,12 @@ app.config['SQLACHEMY_DATABASE_URI']=os.getenv("DATABASE_URL")
 
 db=SQLAlchemy(app)
 
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    password = db.Column(db.String(120), nullable=False, unique=True)
+
+
 @app.route('/')
 def index():
     return render_template('home.html')
@@ -34,7 +40,7 @@ def register():
         else:            
             return render_template("register.html", alert="Insert matching passwords, please")
     
-    
+
     else:   
         return render_template("register.html")
     
