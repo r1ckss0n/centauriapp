@@ -16,7 +16,7 @@ db=SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    return 'Hello'
+    return render_template('home.html')
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
