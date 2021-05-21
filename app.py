@@ -10,7 +10,7 @@ if not os.getenv("DATABASE_URL"):
 
 # set up database
 app.config['SECRET_KEY']= 'secret'
-app.config['SQLACHEMY_DATABASE_URI']=os.getenv("DATABASE_URL")
+app.config['SQLACHEMY_DATABASE_URI']=("DATABASE_URL")
 
 db=SQLAlchemy(app)
 
