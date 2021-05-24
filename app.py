@@ -17,7 +17,7 @@ Session(app)
 
 # set up database
 app.config['SECRET_KEY']= 'secret'
-app.config['SQLACHEMY_DATABASE_URI']= os.getenv("DATABASE_URL")
+app.config['SQLACHEMY_DATABASE_URI']= os.getenv("postgres://fiirvywpgdszid:fba7828d068dcda35d863b9dcb694a94869db7e3ecef21debf9a1a5d1de2be8e@ec2-54-160-96-70.compute-1.amazonaws.com:5432/dahna9ajn565oa")
 
 db=SQLAlchemy(app)
 
