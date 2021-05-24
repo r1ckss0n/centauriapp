@@ -17,7 +17,7 @@ Session(app)
 
 # set up database
 app.config['SECRET_KEY']= 'secret'
-app.config['SQLACHEMY_DATABASE_URI']= os.getenv("postgres://fiirvywpgdszid:fba7828d068dcda35d863b9dcb694a94869db7e3ecef21debf9a1a5d1de2be8e@ec2-54-160-96-70.compute-1.amazonaws.com:5432/dahna9ajn565oa")
+app.config['SQLACHEMY_DATABASE_URI']= os.getenv("DATABASE_URL")
 
 db=SQLAlchemy(app)
 
@@ -36,7 +36,7 @@ def register():
 
         if password1 == password2 and user:
             user = request.form.get("user")
-            db.execute("INSERT INTO users (username, password) VALUES (:username, MD5(:password))",
+            db.session.execute("INSERT INTO users (username, password) VALUES (:username, MD5(:password))",
                 {"username": user, "emai": email, "password": password1})
             db.commit()
             return render_template("home.html", user = user)
@@ -53,7 +53,7 @@ def login():
         try:
             email = request.form.get("email")
             password = request.form.get("password1")
-            user = db.execute("SELECT username FROM users WHERE email = :email AND password = MD5(:password)",
+            user = db.session.execute("SELECT username FROM users WHERE email = :email AND password = MD5(:password)",
                 {"email": email, "password": password}).fetchone()
             return render_template("home.html", email =email.email)
         except:
