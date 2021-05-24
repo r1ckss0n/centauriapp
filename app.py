@@ -21,11 +21,6 @@ app.config['SQLACHEMY_DATABASE_URI']= os.getenv("DATABASE_URL")
 
 db=SQLAlchemy(app)
 
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), nullable=False)
-    password = db.Column(db.String(120), nullable=False, unique=True)
-
 
 @app.route('/')
 def index():
@@ -35,13 +30,14 @@ def index():
 def register():
     if request.method == 'POST':
         user = request.form.get("user")
+        email = request.form.get("email")
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
 
         if password1 == password2 and user:
             user = request.form.get("user")
             db.execute("INSERT INTO users (username, password) VALUES (:username, MD5(:password))",
-                {"username": user, "password": password1})
+                {"username": user, "emai": email, "password": password1})
             db.commit()
             return render_template("home.html", user = user)
         else:            
@@ -55,13 +51,13 @@ def register():
 def login():
     if request.method == 'POST':
         try:
-            user = request.form.get("user")
+            email = request.form.get("email")
             password = request.form.get("password1")
-            user = db.execute("SELECT username FROM users WHERE username = :username AND password = MD5(:password)",
-                {"username": user, "password": password}).fetchone()
-            return render_template("home.html", user = user.username)
+            user = db.execute("SELECT username FROM users WHERE email = :email AND password = MD5(:password)",
+                {"email": email, "password": password}).fetchone()
+            return render_template("home.html", email =email.email)
         except:
-            return render_template("home.html", user = "Unable to login")
+            return render_template("home.html", email = "Unable to login")
 
     else:
         return render_template("login.html")
