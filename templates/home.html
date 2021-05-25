@@ -1,4 +1,3 @@
-  
 {% extends "base.html" %}
 
 {% block body %}
@@ -6,11 +5,8 @@
 <div class="box-shadow">
     <ul>
         <li>
-        {% if user %}
-            <h1>Welcome, {{ user }}!</h1>
-        {% else %}
             <h1>Welcome</h1>
-        {% endif %}
+       
         </li>
         <hr>
         <li><input type=button onClick="location.href='register'" value='Register'></li>
