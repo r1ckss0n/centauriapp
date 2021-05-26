@@ -34,8 +34,8 @@ def register():
 
         if password1 == password2 and user:
             user = request.form.get("username")
-            db.execute("INSERT INTO users (username, password) VALUES (:username, MD5(:password))",
-                {"username": user, "emai": email, "password": password1})
+            db.execute("INSERT INTO users (username, email, password) VALUES (:username, email, MD5(:password))",
+                {"username": user, "email": email, "password": password1})
             db.commit()
             return render_template("home.html", user = user)
         else:            
